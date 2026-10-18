@@ -4,7 +4,7 @@ Status: draft · Author: Mike Helmick · 2026-10-18
 
 ## Goal
 
-A Claude Code plugin that encodes Mike's design process: grill hard up front, write one checked-in design doc, then build autonomously in reviewable PR stacks until the goal is met and reviews converge.
+A Claude Code plugin that encodes a software design process: grill hard up front, write one checked-in design doc, then build autonomously in reviewable PR stacks until the goal is met and reviews converge.
 
 ## Principles
 
