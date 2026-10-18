@@ -1,6 +1,6 @@
 # Review skill
 
-Status: draft · Author: Mike Helmick · 2026-10-18
+Status: approved · Author: Mike Helmick · 2026-10-18
 
 ## Goal
 
