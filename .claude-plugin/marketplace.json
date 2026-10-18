@@ -1,0 +1,14 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "design-process",
+  "description": "A design-and-build process for Claude Code.",
+  "owner": { "name": "Mike Helmick" },
+  "plugins": [
+    {
+      "name": "design-process",
+      "description": "Grill, design doc, PR stacks, review to convergence.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

@@ -66,7 +66,7 @@ Expected: FAIL (no manifest).
 {
   "name": "design-process",
   "version": "0.1.0",
-  "description": "Mike's software design process: grill hard up front, one checked-in design doc, then build autonomously in reviewable PR stacks.",
+  "description": "A software design process for Claude Code: grill hard up front, one checked-in design doc, then build autonomously in reviewable PR stacks.",
   "author": { "name": "Mike Helmick" },
   "license": "Apache-2.0",
   "keywords": ["design", "spec", "pr-stack", "workflow"]
@@ -79,7 +79,7 @@ Expected: FAIL (no manifest).
 {
   "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
   "name": "design-process",
-  "description": "Mike's design-and-build process for Claude Code.",
+  "description": "A design-and-build process for Claude Code.",
   "owner": { "name": "Mike Helmick" },
   "plugins": [
     {
@@ -522,7 +522,7 @@ Expected: PASS.
 ````markdown
 # design-process
 
-Claude Code plugin encoding my design process: grill hard up front, one checked-in design doc + plan, then build autonomously in reviewable draft PR stacks until reviews converge.
+Claude Code plugin encoding a software design process: grill hard up front, one checked-in design doc + plan, then build autonomously in reviewable draft PR stacks until reviews converge.
 
 Layers on [superpowers](https://github.com/obra/superpowers) (recommended, not required).
 
