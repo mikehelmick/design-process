@@ -57,13 +57,15 @@ design-process/
 
 ## Phases
 
-1. **Design skill + hook + references.** Works when: in a scratch repo, "let's add X" triggers sizing + grilling in D15 style and produces a doc matching the template.
-2. **Build skill + design-security-reviewer.** Works when: an approved doc in a scratch repo produces a draft PR stack with pre-open reviews recorded in PR descriptions.
+1. **Design skill + hook + references + design-security-reviewer.** Works when: in a scratch repo, "let's add X" triggers sizing + grilling in D15 style and produces a doc matching the template.
+2. **Build skill.** Works when: an approved doc in a scratch repo produces a draft PR stack with pre-open reviews recorded in PR descriptions.
 
 ## Validation
 
-- `plugin-dev:plugin-validator` on each phase.
-- E2E: install plugin locally (`/plugin marketplace add <repo path>`), run the "works when" scenario in a scratch git repo.
+- Structure: `claude plugin validate --strict .` on every PR.
+- Hook: `tests/hook_test.sh` parses SessionStart output.
+- E2E: `claude plugin eval` cases per skill (isolated runs, so skills must work without superpowers).
+- Final: local install (`/plugin marketplace add <repo path>`), run each phase's "works when" in a scratch repo.
 
 ## Rollout
 
