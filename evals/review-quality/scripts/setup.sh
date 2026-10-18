@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Repo with an existing helper, a documented style deviation, and a feature
 # branch whose diff re-implements the helper non-idiomatically.
+# Keep identical to evals/review-others/scripts/setup.sh (each case needs its own copy).
 set -euo pipefail
 git symbolic-ref HEAD refs/heads/main
 cat > CLAUDE.md <<'MD'

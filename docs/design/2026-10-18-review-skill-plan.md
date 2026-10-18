@@ -275,6 +275,8 @@ The build skill's own-PR path never posts reviews.
 - The sandbox's macOS git shim fails (xcrun cache permissions), so the scaffold also writes `feature.diff` and the prompts point to it.
 - review-quality's single all-or-nothing grader was split into factoring-idiom / one-way-door / format, to reduce judge flakiness.
 
+- Dogfood review (design-process:review on its own PRs) found and fixed: fork PRs posting to the head repo (now base repo from the PR URL); skipped scanners blocking convergence (only a missing correctness or security pass blocks now); COMMENT wording; evals granting broad Bash; scanners reading PR-provided config (now pinned: `--config /dev/null`, `--no-config`, `--x-ignore-semgrepignore-files`, `GOTOOLCHAIN=local`, run in a detached worktree); suggesting REQUEST_CHANGES unprompted. The shipped `skills/review/SKILL.md` is authoritative over the text above.
+
 ## Final
 
 - [ ] Goal-level review per the build skill (dogfood: use `design-process:review` on the stack).
