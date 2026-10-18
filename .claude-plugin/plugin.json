@@ -1,0 +1,8 @@
+{
+  "name": "design-process",
+  "version": "0.1.0",
+  "description": "Mike's software design process: grill hard up front, one checked-in design doc, then build autonomously in reviewable PR stacks.",
+  "author": { "name": "Mike Helmick" },
+  "license": "Apache-2.0",
+  "keywords": ["design", "spec", "pr-stack", "workflow"]
+}
