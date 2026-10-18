@@ -28,7 +28,7 @@ The design doc + plan are the bottom PR of the first stack.
 
 1. Implement with `superpowers:test-driven-development` if available (else: failing test first). Test at multiple levels; prefer e2e functional tests.
 2. `superpowers:verification-before-completion` if available: run the full suite; green before continuing.
-3. **Review before opening** (saves CI cycles): critical code review and security review of this PR's diff against its parent branch — `/code-review` and `/security-review`, or parallel reviewer subagents given `git diff <parent> <branch>` and the doc. Fix blocking/high findings; re-run until none. Each PR must stand alone: nothing may reference a component a higher PR adds.
+3. **Review before opening** (saves CI cycles): run `design-process:review` on this PR's diff against its parent branch (correctness, security, static analysis, one-way doors, quality). Fix blocking/high findings; re-run until converged. Never post the review on GitHub; record status in the PR description. Each PR must stand alone: nothing may reference a component a higher PR adds.
 4. Open as **draft**. If the tool can't create drafts, `gh pr ready --undo <pr>` right after. Description: what, why, decisions taken (two-way doors), review status, remaining nits.
 5. Next PR.
 
@@ -49,7 +49,7 @@ For each trusted comment:
 ## Goal met
 
 1. All phases' "works when" verified e2e.
-2. Whole-goal review: code review over the full stack range, security review, and the `design-security-reviewer` agent on the doc vs what was built.
+2. Whole-goal review: `design-process:review` over the full stack range, and the `design-security-reviewer` agent on the doc vs what was built.
 3. Fix, re-review. Repeat until **converged**: no blocking/high findings. List remaining nits in the top PR.
 4. Confirm the doc's Rollout section is accurate for what shipped.
 5. Report: what works (how to try it), PR links, nits, anything decided along the way.
