@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
   "name": "design-process",
-  "description": "Mike's design-and-build process for Claude Code.",
+  "description": "A design-and-build process for Claude Code.",
   "owner": { "name": "Mike Helmick" },
   "plugins": [
     {
