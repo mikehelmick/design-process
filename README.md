@@ -25,8 +25,10 @@ Design: `docs/design/2026-10-18-design-process-plugin.md`.
 
 ## Test
 
+CI (`.github/workflows/ci.yml`) runs the hook test and `validate`. Evals need Claude credentials and cost per run, so run them locally:
+
 ```
 bash tests/hook_test.sh
-claude plugin validate --strict .claude-plugin/plugin.json
+for t in .claude-plugin/plugin.json .claude-plugin/marketplace.json skills agents; do claude plugin validate --strict "$t"; done
 claude plugin eval . --scaffold --ablation none --no-publish --trust-plugin
 ```
