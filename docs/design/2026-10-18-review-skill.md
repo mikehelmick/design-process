@@ -26,6 +26,11 @@ Add `design-process:review`, a code review skill that applies the user's quality
 | CR14 | CR13 findings are **high** by default. | two-way |
 | CR15 | Ranking: correctness → security → one-way doors/fragility → idiomatic → factoring → readability. Replaces the ranking in CR4. | two-way |
 | CR16 | Never flag anything a formatter or linter would auto-fix. | two-way |
+| CR17 | Static analysis pass using whichever tools are installed: semgrep, trufflehog, trivy, zizmor, govulncheck, shellcheck, hadolint; on own PRs, also linters the repo configures. Scoped to changed files. An LLM triage keeps only material hits; the report shows "N tool hits → M material". | two-way |
+| CR18 | Missing tools are skipped and noted, never auto-installed (a new dependency is a one-way door). | two-way |
+| CR19 | On others' PRs, only scanners whose rules don't come from the PR: semgrep (registry rules, `--metrics=off`), trufflehog, trivy, zizmor, govulncheck, shellcheck, hadolint. Repo-configured linters are not run (S2). | two-way |
+| CR20 | trufflehog always runs with `--no-verification`; found secrets are never sent to providers. A real-looking secret is high regardless. | two-way |
+| CR21 | Evals don't depend on any scanner being installed. | two-way |
 
 ## Design
 

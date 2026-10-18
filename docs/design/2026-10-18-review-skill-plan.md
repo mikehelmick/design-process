@@ -175,10 +175,30 @@ PR number, branch, or range. Find its base (PR base, or parent branch in a stack
 
 1. **Correctness:** `/code-review` on the target. If unavailable, review the diff for bugs yourself: logic errors, edge cases, error handling, concurrency, resource leaks.
 2. **Security:** `/security-review`. If unavailable: a reviewer subagent given the diff, checking injection, authn/z, secrets, unsafe input, SSRF, path traversal.
-3. **One-way doors** (below).
-4. **Quality lens** (below).
+3. **Static analysis** (below).
+4. **One-way doors** (below).
+5. **Quality lens** (below).
 
 Merge and dedupe into one report. Name which reviewer ran each pass. A pass that couldn't run blocks convergence.
+
+## Static analysis
+
+Run whichever of these are installed (`command -v`), on changed files only. Never install anything; note the skipped tools in the report.
+
+| Tool | Command (on changed files / repo root) |
+|---|---|
+| semgrep | `semgrep scan --config p/default --metrics=off --json <files>` |
+| trufflehog | `trufflehog filesystem --no-verification --json <files>` |
+| trivy | `trivy fs --scanners vuln,misconfig,secret --format json .` (lockfiles, IaC) |
+| zizmor | `zizmor --format json .github/workflows/` (if workflows changed) |
+| govulncheck | `govulncheck -json ./...` (Go repos) |
+| shellcheck / hadolint | on changed `*.sh` / `Dockerfile*` |
+
+Own PRs: also run the linters the repo configures. **Others' PRs:** only the table above (rules don't come from the PR); never repo-configured linters (their configs can execute code).
+
+Never send a found secret anywhere (trufflehog stays `--no-verification`).
+
+**Triage:** for each hit, decide whether it's material: reachable, in this diff, exploitable or a real bug, and not a test fixture or placeholder. Only material hits become findings, citing the tool and rule ID. A real-looking secret is always high. The report shows `N tool hits → M material`.
 
 ## One-way doors
 
