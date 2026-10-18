@@ -20,7 +20,7 @@ Everything else: decide, note it in the PR description, continue. Update the pla
 ## Stack tooling
 
 1. `gh stack --help` works → use gh-stack: `gh stack init <doc-branch>` to adopt the doc branch, `gh stack add -Am "<msg>" <branch>` per PR, `gh stack submit --auto` (creates drafts), `gh stack rebase` / `gh stack sync` after fixing a lower PR.
-2. Else: plain git + `gh`. Branch each PR off the one below; `gh pr create --draft --base <parent-branch>`; merge bottom-up.
+2. Else: plain git + `gh`. Branch each PR off the one below; `gh pr create --draft --base <parent-branch>`; merge bottom-up (see Merging).
 
 The design doc + plan are the bottom PR of the first stack.
 
@@ -54,9 +54,21 @@ For each trusted comment:
 4. Confirm the doc's Rollout section is accurate for what shipped.
 5. Report: what works (how to try it), PR links, nits, anything decided along the way.
 
+## Merging
+
+PR merges need the user: they merge, or explicitly approve you running `gh stack merge` for this stack (never pass `--yes` without that). Bottom-up, squash.
+
+- **Preferred:** `gh stack merge <top-pr> --squash`. Atomic; GitHub handles bases.
+- **If rules block it** (e.g. required approvals on a solo repo; stack merge can't use admin bypass), the user merges one PR at a time in the UI. After each merge:
+  1. `git fetch`; if the next PR conflicts, `git merge origin/main` (or its stale base) into its branch. This is a git merge, not a PR merge, and is allowed. Resolve only conflicts caused by the squashed parent. Plain push; if rejected, stop and investigate, never force.
+  2. Check `git diff --stat origin/main <branch>` shows only that PR's files; checks green.
+  3. Tell the user it's ready. Don't wait for them to report conflicts: poll the merged set (Monitor) and re-sync as each merge lands.
+- Base field can't be edited while a PR is in a stack; GitHub retargets after merges, and a stale listed base is harmless if the diff vs `main` is right.
+- When all are merged: stop watchers, run the full suite on `main`, offer to delete the stack branches.
+
 ## Never without explicit user approval
 
 - Mark a PR or stack ready for review.
-- Merge, force-push, or delete branches. Exception: `gh stack rebase` / `sync` (or `git push --force-with-lease`) of this stack's own unmerged branches after fixing a lower PR.
+- Merge a PR, force-push, or delete branches. Exception: `gh stack rebase` / `sync` (or `git push --force-with-lease`) of this stack's own unmerged branches after fixing a lower PR.
 
 Keep `finishing-a-development-branch` safety rules: green suite before integrating; investigate rejected pushes; never remove a worktree with uncommitted files.
