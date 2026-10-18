@@ -1,6 +1,6 @@
-# design-process
+# Design Process
 
-Claude Code plugin encoding my design process: grill hard up front, one checked-in design doc + plan, then build autonomously in reviewable draft PR stacks until reviews converge.
+Claude Code plugin encoding a software design process: grill hard up front, one checked-in design doc + plan, then build autonomously in reviewable draft PR stacks until reviews converge.
 
 Layers on [superpowers](https://github.com/obra/superpowers) (recommended, not required).
 
