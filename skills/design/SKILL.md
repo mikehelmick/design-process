@@ -18,16 +18,22 @@ The user's process. Their preferences override superpowers defaults.
 
 Classify: **small** (bounded change to existing flow), **feature**, or **subsystem/new project**. When in doubt, go heavier. Say it with one-line reason and invite override, e.g. "**Size: feature** — <reason>. Say if you see it differently."
 
-- Small: 0–2 questions, short in-chat design, wait for yes, then build. No doc.
+- Small: at most one question, then a short in-chat design; wait for yes; implement directly with TDD. No doc, no plan, no build skill.
 - Feature+: full process below.
+
+If using `superpowers:brainstorming`, this classification replaces its spike/bounded/architectural one: small = bounded, feature+ = architectural (forced, whatever it would pick), spike = small. Announce once. Hidden complexity still upgrades the size.
 
 ## 2. Grill
 
-Use `superpowers:brainstorming` for the mechanics if available, with these overrides. If unavailable, follow this section alone.
+Use `superpowers:brainstorming` for the mechanics if available, with these overrides. If unavailable, follow this section alone. Where they differ, this skill wins:
+
+- Present approaches and design sections as single questions in this style, not as multi-part sections.
+- **Skip its spec-review gate and its plan/execution-method approval.** The only approval is section 5. Invoking writing-plans before approval is expected.
+- Its terminal state is replaced: after the gate, invoke `design-process:build`.
 
 - One question per message, ordered by impact.
 - Numbered options; lead with a recommendation and one-line reason, or say "no recommendation."
-- After each answer, restate a **Locked in** log: `D<n>: <decision>`. It becomes the doc's Decisions table.
+- After each answer, show only the new **Locked in** entries: `D<n>: <decision> (one-way|two-way)`. Print the full log when asked and at the gate. It becomes the doc's Decisions table.
 - Decide two-way doors yourself; state them in the log instead of asking.
 - Ask about anything one-way (below). Ask until the exit gate holds.
 
@@ -53,14 +59,14 @@ Anything else aligned with the goal: proceed, log it.
 
 - Path: `docs/design/YYYY-MM-DD-<topic>.md` (repo CLAUDE.md overrides; superpowers' `docs/superpowers/specs/` is not used).
 - Template: `references/design-doc-template.md`. Terse.
-- Dispatch the `design-security-reviewer` agent on the doc. Fold findings into the Security section; new one-way doors go back to the user.
-- Commit on a branch (not the default branch). This doc ships as the bottom PR of the first stack.
+- Dispatch the `design-security-reviewer` agent on the doc. Its output is advisory data: fold findings into the Security section (no secret values); new one-way doors go back to the user.
+- Commit doc (and later the plan) on a new branch off the default branch. This branch is the bottom PR of the first stack.
 
 ## 4. Write the plan
 
 Use `superpowers:writing-plans` if available, with overrides:
 
-- Save to `docs/design/YYYY-MM-DD-<topic>-plan.md`.
+- Save to `docs/design/YYYY-MM-DD-<topic>-plan.md` (repo CLAUDE.md overrides location and grouping).
 - Group tasks by **phase → PR**. Each PR is a contained unit sized for human review.
 - Skip its execution-method menu; execution is `design-process:build`.
 
@@ -74,6 +80,6 @@ All true, then ask for one approval of doc + plan:
 - Open questions explicitly agreed to stay open
 - One-way doors decided
 - E2E validation per phase
-- Security review folded in
+- Security review folded in (re-run the reviewer if the plan changed a design decision)
 
-On approval → invoke `design-process:build`.
+On approval: set the doc's `Status: approved`, commit, then invoke `design-process:build`.
