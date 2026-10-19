@@ -21,6 +21,8 @@ Local checkout:
 
 Start feature work normally ("let's add X"). `design-process:design` triggers, sizes the work, and grills. After you approve the doc + plan, `design-process:build` runs.
 
+`design-process:review` reviews any PR, branch or diff, layering idiomatic/factoring/readability and one-way-door checks on correctness, security and static analysis. For others' PRs it drafts and asks before posting.
+
 Design: `docs/design/2026-10-18-design-process-plugin.md`.
 
 ## Test
@@ -30,7 +32,7 @@ CI (`.github/workflows/ci.yml`) runs the hook test and `validate`. Evals need Cl
 ```
 bash tests/hook_test.sh
 for t in .claude-plugin/plugin.json .claude-plugin/marketplace.json skills agents; do claude plugin validate --strict "$t"; done
-claude plugin eval . --scaffold --ablation none --no-publish --trust-plugin
+claude plugin eval . --scaffold --ablation none --no-publish --trust-plugin --allow-tools 'Bash(git:*)' --judge-model sonnet
 ```
 
 ## Releasing

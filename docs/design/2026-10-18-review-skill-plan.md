@@ -239,7 +239,7 @@ Sections in exactly this order, omitting empty ones: Correctness, Security, One-
   Fix: <suggestion; short snippet if it helps>
 ```
 
-Factual, gentle, short. No preamble, no praise padding. First line: reviewers that ran per pass and any skipped (one line). Last line: converged or not. Never quote secret values; cite `file:line`. No findings → say so in one line.
+Factual, gentle, short. No preamble, no praise padding. First line, exactly one line, e.g. `Passes: correctness /code-review · security manual · static analysis skipped (no shell)`. No other preamble. Last line: converged or not. Never quote secret values; cite `file:line`. No findings → say so in one line.
 
 ## Own PRs (build skill)
 
