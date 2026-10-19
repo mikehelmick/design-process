@@ -32,3 +32,14 @@ bash tests/hook_test.sh
 for t in .claude-plugin/plugin.json .claude-plugin/marketplace.json skills agents; do claude plugin validate --strict "$t"; done
 claude plugin eval . --scaffold --ablation none --no-publish --trust-plugin
 ```
+
+## Releasing
+
+Installs are cached by version, so unbumped changes may not reach users.
+
+1. In the PR, bump `version` in `.claude-plugin/plugin.json` (semver: patch for wording/fixes, minor for new behavior).
+2. Merge to `main`.
+3. Tag: `claude plugin tag --push` (creates `design-process--v<version>`; checks manifests agree).
+4. Users update: `/plugin marketplace update design-process`, then `/plugin update design-process`.
+
+Downgrade: reinstall from a previous `design-process--v<version>` tag, or disable the plugin.
