@@ -82,7 +82,6 @@ def sessionCookie(commit):
     return {"name": "session", "value": commit.timestamp.isoformat()}
 PY
 git add -A && git -c user.email=e@x -c user.name=eval commit -qm "Add post URLs"
-EOF
 ```
 
 `evals/review-quality/case.yaml`:
@@ -232,7 +231,7 @@ Check, in order:
 
 ## Report
 
-Ranked by category (correctness → security → one-way doors → idiomatic → factoring → readability), then severity. Per finding:
+Sections in exactly this order, omitting empty ones: Correctness, Security, One-way doors, Idiomatic, Factoring, Readability. Within each, by severity. Per finding, at most 3 lines:
 
 ```
 <severity> · <file:line> — <issue, one sentence>
@@ -240,7 +239,7 @@ Ranked by category (correctness → security → one-way doors → idiomatic →
   Fix: <suggestion; short snippet if it helps>
 ```
 
-Factual, gentle, short. No preamble, no praise padding. Never quote secret values; cite `file:line`. No findings → say so in one line. End with: converged or not.
+Factual, gentle, short. No preamble, no praise padding. First line: reviewers that ran per pass and any skipped (one line). Last line: converged or not. Never quote secret values; cite `file:line`. No findings → say so in one line.
 
 ## Own PRs (build skill)
 
@@ -270,6 +269,13 @@ The build skill's own-PR path never posts reviews.
 - [ ] **Step 3: Version** 0.1.1 → 0.2.0 in plugin.json. In the README "Use" section, add: "`design-process:review` reviews any PR/branch; for others' PRs it drafts and asks before posting."
 - [ ] **Step 4: Verify.** `bash tests/hook_test.sh` (asserts that `design-process:review` exists); validate all targets; `claude plugin eval . --scaffold --ablation none --no-publish --trust-plugin --allow-tools 'Bash(git:*)'`. Expected: all 5 cases pass.
 - [ ] **Step 5: Commit** — "Wire review skill into build and hook; v0.2.0"
+
+## Notes from implementation
+
+- The sandbox's macOS git shim fails (xcrun cache permissions), so the scaffold also writes `feature.diff` and the prompts point to it.
+- review-quality's single all-or-nothing grader was split into factoring-idiom / one-way-door / format, to reduce judge flakiness.
+
+- Dogfood review (design-process:review on its own PRs) found and fixed: fork PRs posting to the head repo (now base repo from the PR URL); skipped scanners blocking convergence (only a missing correctness or security pass blocks now); COMMENT wording; evals granting broad Bash; scanners reading PR-provided config (now pinned: `--config /dev/null`, `--no-config`, `--x-ignore-semgrepignore-files`, `GOTOOLCHAIN=local`, run in a detached worktree); suggesting REQUEST_CHANGES unprompted. The shipped `skills/review/SKILL.md` is authoritative over the text above.
 
 ## Final
 
